@@ -1,0 +1,161 @@
+body{
+	background-color: brown;
+}
+#header{
+	font-size: 42px;
+	text-align: center;
+	text-decoration: underline;
+	color: white;
+	opacity: 0;
+	transition: 3s;
+}
+#spinningWheelVideo{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+#goal{
+	position: absolute;
+	top: 6px;
+	left: 400px;
+	z-index: 2;
+
+	display: block;
+	text-align: center;
+	color: white;
+	font-size: 22px;
+	opacity: 1;
+	transition: 5s;
+}
+#categoryArea{
+	position: absolute;
+	top: 70px;
+	left: 300px;
+	z-index: 2;
+
+	display: inline-block;
+	text-align: center;
+	color: white;
+	font-size: 32px;
+	padding-top: 5px;
+	text-decoration: underline;
+	height: 200px;
+	width: 800px;
+	background-color: rgb(70,70,255);
+	border-radius: 45px;
+	border: 4px solid rgba(50,50,100,.8);
+}
+#wordArea{
+	position: absolute;
+	top: 45px;
+	left: 9px;
+	z-index: 2;
+
+	display: block;
+	text-align: left;
+	padding-left: 10px;
+	padding-top: 12px;
+	padding-bottom: 0px;
+	color: white;
+	font-size: 48px;
+	height: 40px;
+	width: 770px;
+}
+#hintArea{
+	position: absolute;
+	top: 140px;
+	left: 9px;
+	z-index: 2;
+
+	display: block;
+	text-align: left;
+	padding-left: 10px;
+	padding-top: 12px;
+	padding-bottom: 0px;
+	color: white;
+	font-size: 18px;
+	height: 40px;
+	width: 770px;
+	background-color: rgb(90,70,255);
+	border-radius: 45px;
+	border: 2px solid rgba(50,50,100,.8);
+}
+#mistakenGuessesArea{
+	position: absolute;
+	top: 320px;
+	left: 300px;
+	z-index: 2;
+
+	display: inline-block;
+	text-align: center;
+	color: rgb(0,255,0);
+	font-size: 32px;
+	padding-top: 5px;
+	text-decoration: underline;
+	height: 140px;
+	width: 800px;
+	background-color: rgb(70,70,255);
+	border-radius: 45px;
+	border: 4px solid rgba(50,50,100,.8);
+}
+#vowelsArea{
+	position: absolute;
+	top: 70px;
+	left: 40px;
+	z-index: 2;
+
+	display: block;
+	text-align: left;
+	padding-left: 10px;
+	padding-top: 12px;
+	padding-bottom: 0px;
+	color: white;
+	font-size: 20px;
+	height: 40px;
+	width: 170px;
+	background-color: rgb(90,70,255);
+	border-radius: 45px;
+	border: 2px solid rgba(50,50,100,.8);
+}
+#consonantsArea{
+	position: absolute;
+	top: 70px;
+	left: 294px;
+	z-index: 2;
+
+	display: block;
+	text-align: left;
+	padding-left: 10px;
+	padding-top: 12px;
+	padding-bottom: 0px;
+	color: white;
+	font-size: 20px;
+	height: 40px;
+	width: 440px;
+	background-color: rgb(90,70,255);
+	border-radius: 45px;
+	border: 2px solid rgba(50,50,100,.8);
+}
+#startGame{
+	position: absolute;
+	top: 520px;
+	left: 610px;
+	z-index: 2;
+
+	display: inline-block;
+	text-align: center;
+	color: black;
+	font-size: 22px;
+	padding-top: 5px;
+	border-radius: 45px;
+	border: 4px solid rgba(50,50,100,.8);
+	opacity: 0;
+	transition: 2s;
+}
+
+
+
+
