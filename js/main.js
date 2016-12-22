@@ -1,7 +1,10 @@
-// Use JavaScript to give the user a word to guess letter by letter. Will the user lose points as
-// they guess wrong? Will they try to beat the clock? Do they only get 3 guesses? You decide! Make
-// it clear to the user what their goal is. The app should be styled with simple but modern design
-// trends and fun for the user. Remember keep your user engaged.
+// Use JavaScript to give the user a word to guess
+// letter by letter. Will the user lose points as they
+// guess wrong? Will they try to beat the clock? Do
+// they only get 3 guesses? You decide! Make it clear
+// to the user what their goal is. The app should be
+// styled with simple but modern design trends and fun
+// for the user. Remember keep your user engaged.
 
 window.addEventListener("load",function(){
 	myFunction();
@@ -19,66 +22,68 @@ window.addEventListener("load",function(){
 	function fadeInFunc() {
 		document.getElementById("startGame").style.opacity = 1;
 	}
-	var i;
 	var perCharacter;
 	var characterSpace;
 	var spacesInbetween;
 	document.getElementById("startGame").addEventListener("click", function(){
-		alert("You made it here!");
 		var myVar3;
 		myVar3 = setTimeout(fadeOutFunc2, 1000); // 2B used while coding
 		// myVar3 = setTimeout(fadeOutFunc2, 4000); // 2B used when coding is done
 		function fadeOutFunc2() {
 			// document.getElementById("startGame").style.opacity = 0;
-			document.getElementById("startGame").style.display = none;
+			document.getElementById("startGame").style.display = "none";
 		}
-		for(i = 0; i <= 9; i++){
-			var gameWord = wordList[i].word;
+		for(var i = 0; i <= 9; i++){
+		alert("You made it here. i = " + i);
+			// console.log(Words[i].word);
+			// var gameWord = Words[i].word;
 			var gameWordLength = parseInt(wordList[i].wordLength);
 			var gameWordHint = wordList[i].hint;
+			document.getElementById("hintArea").innerHTML = "Hint: " + gameWordHint;
 			var gameWordCategory = wordList[i].category;
+			document.getElementById("categoryArea").innerHTML = gameWordCategory;
 			totalLength(gameWordLength);
 		}
-	})
-	function totalLength(totlen){
-		var x = parseInt(totlen) + (parseInt(totlen) -1);
-		createWordDisplay(x);
-	}
-	// Calculate "spreadout" of word 'dashes'
-	// Word available space
-	//	770 - 18 = (752)
-	function createWordDisplay(wordInfo){
-		perCharacter = 752 / parseInt(wordInfo);			// 35
-		characterSpace = parseInt(perCharacter) * 2 / 3;	// 23
-		spacesInbetween = parseInt(perCharacter) / 3;		// 11
-		for(i = 0; i <= perCharacter; i = i++){
-			var wordGuess = wordGuess = "_";
-			document.getElementById("wordArea").innerHTML = wordGuess;
+		function totalLength(totlen){
+			var x = parseInt(totlen) + (parseInt(totlen) -1);
+			createWordDisplay(x);
 		}
-	}
-	// Split word into array
-	function wordTransform(whichWord){
-		// split word
-		var wordTemp = whichWord.split;
-	}
-	function Words(word, wordLength, hint, category) {
-	    this.word = word;
-	    this.wordLength = wordLength;
-	    this.hint = hint;
-	    this.category = category;
-	}
-	var wordList = [
-		new Words("Constructor", 11, "The Object of our coding", "WDI"),
-		new Words("JavaScript", 10, "Coffee writing", "WDI"),
-		new Words("America", 7, "She's beautiful", "Miscellaneous"),
-		new Words("Developers", 10, "What we are", "WDI"),
-		new Words("NYCDA", 5, "Where we are", "WDI"),
-		new Words("Camerican", 9, "Our instructor's github name", "People"),
-		new Words("Fortune", 7, "Wheel of ?", "Miscellaneous"),
-		new Words("Independance", 12, "The Declaration of ?", "Miscellaneous"),
-		new Words("Christmas", 9, "The celebration of Jesus' birth", "Miscellaneous"),
-		new Words("Jeremy", 6, "NYCDA's 'head honcho'", "People")
-	]
+		// Calculate "spreadout" of word 'dashes'
+		// Word available space
+		//	770 - 18 = (752)
+		function createWordDisplay(wordInfo){
+			perCharacter = 752 / parseInt(wordInfo);			// 35
+			characterSpace = parseInt(perCharacter) * 2 / 3;	// 23
+			spacesInbetween = parseInt(perCharacter) / 3;		// 11
+			for(i = 0; i <= perCharacter; i = i++){
+				var wordGuess = wordGuess = "_";
+				document.getElementById("wordArea").innerHTML = wordGuess;
+			}
+		}
+		// Split word into array
+		function wordTransform(whichWord){
+			// split word
+			var wordTemp = whichWord.split;
+		}
+		function Words(word, wordLength, hint, category) {
+		    this.word = word;
+		    this.wordLength = wordLength;
+		    this.hint = hint;
+		    this.category = category;
+		}
+		var wordList = [
+			new Words("Constructor", 11, "The Object of our coding", "WDI"),
+			new Words("JavaScript", 10, "Coffee writing", "WDI"),
+			new Words("America", 7, "She's beautiful", "Miscellaneous"),
+			new Words("Developers", 10, "What we are", "WDI"),
+			new Words("NYCDA", 5, "Where we are", "WDI"),
+			new Words("Camerican", 9, "Our instructor's github name", "People"),
+			new Words("Fortune", 7, "Wheel of ?", "Miscellaneous"),
+			new Words("Independance", 12, "The Declaration of ?", "Miscellaneous"),
+			new Words("Christmas", 9, "The celebration of Jesus' birth", "Miscellaneous"),
+			new Words("Jeremy", 6, "NYCDA's 'head honcho'", "People")
+		]
+	})
 });
 // function person(first, last, age, eye) {
 //     this.firstName = first;
@@ -116,6 +121,3 @@ window.addEventListener("load",function(){
 // Optional:
 // • Determine code for whether the user loses points for a wrong guess
 // • Do I limit user in # of guesses? Code?
-
-
-
