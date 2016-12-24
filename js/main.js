@@ -33,81 +33,83 @@ window.addEventListener("load",function(){
 			// document.getElementById("startGame").style.opacity = 0;
 			document.getElementById("startGame").style.display = "none";
 		}
-		for(var i = 0; i <= 9; i++){
-		alert("You made it here. i = " + i);
-			// console.log(Words[i].word);
-			// var gameWord = Words[i].word;
-			var gameWordLength = parseInt(wordList[i].wordLength);
-			var gameWordHint = wordList[i].hint;
-			document.getElementById("hintArea").innerHTML = "Hint: " + gameWordHint;
-			var gameWordCategory = wordList[i].category;
-			document.getElementById("categoryArea").innerHTML = gameWordCategory;
+
+		var i;
+		var gameWord;
+		var gameWordLength;
+		var gameWordHint;
+		var gameWordCategory;
+		var words = new Array();
+		for(i = 0; i <= 9; i++){
+			words[0] = new Array("Constructor", 11, "The Object of our coding", "WDI");
+			words[1] = new Array("JavaScript", 10, "Coffee writing", "WDI");
+			words[2] = new Array("America", 7, "She's beautiful", "Miscellaneous");
+			words[3] = new Array("Developers", 10, "What we are", "WDI");
+			words[4] = new Array("NYCDA", 5, "Where we are", "WDI");
+			words[5] = new Array("Camerican", 9, "Our instructor's github name", "People");
+			words[6] = new Array("Fortune", 7, "Wheel of ?", "Miscellaneous");
+			words[7] = new Array("Independance", 12, "The Declaration of ?", "Miscellaneous");
+			words[8] = new Array("Christmas", 9, "The celebration of Jesus' birth", "Miscellaneous");
+			words[9] = new Array("Jeremy", 6, "NYCDA's 'head honcho'", "People");
+
+			gameWord = words[i][0];
+			gameWordLength = parseInt(words[i][1]);
+			gameWordHint = words[i][2];
+			gameWordCategory = words[i][3];
+
+			document.getElementById("categoryWords").innerHTML = gameWordCategory;
+
 			totalLength(gameWordLength);
-		}
-		function totalLength(totlen){
-			var x = parseInt(totlen) + (parseInt(totlen) -1);
-			createWordDisplay(x);
-		}
-		// Calculate "spreadout" of word 'dashes'
-		// Word available space
-		//	770 - 18 = (752)
-		function createWordDisplay(wordInfo){
-			perCharacter = 752 / parseInt(wordInfo);			// 35
-			characterSpace = parseInt(perCharacter) * 2 / 3;	// 23
-			spacesInbetween = parseInt(perCharacter) / 3;		// 11
-			for(i = 0; i <= perCharacter; i = i++){
-				var wordGuess = wordGuess = "_";
+
+			function totalLength(totlen){
+				var x = parseInt(totlen) + (parseInt(totlen) -1);
+				// x = 21
+				createWordDisplay(x);
+			}
+
+			// Calculate "spreadout" of word 'dashes'
+			// Word available space
+			//	800 - 18 = (782)
+			// wordInfo = 21
+			function createWordDisplay(wordInfo){
+				perCharacter = 782 / parseInt(wordInfo); // 37
+				var wordGuess="";
+				alert("You made it here. " + gameWordLength)
+				for(i = 0; i < gameWordLength; i++){
+					wordGuess = wordGuess + "_ ";
+				}
 				document.getElementById("wordArea").innerHTML = wordGuess;
+
+			// totalLength(gameWordLength);
+			// function totalLength(totlen){
+			// 	var x = parseInt(totlen) + (parseInt(totlen) -1);
+			// 	createWordDisplay(x);
+			// }
+
+			// Calculate "spreadout" of word 'dashes'
+			// Word available space
+			//	800 - 18 = (782)
+			// function createWordDisplay(wordInfo){
+			// 	perCharacter = 752 / parseInt(wordInfo);			// 35
+			// 	characterSpace = parseInt(perCharacter) * 2 / 3;	// 23
+			// 	spacesInbetween = parseInt(perCharacter) / 3;		// 11
+			// 	for(i = 0; i <= perCharacter; i = i++){
+			// 		var wordGuess = wordGuess = "_";
+			// 		document.getElementById("wordArea").innerHTML = wordGuess;
+			// 	}
+			// }
+
+				document.getElementById("hintArea").innerHTML = "Hint: " + gameWordHint;
+			}
+
+			// Split word into array
+			function wordTransform(whichWord){
+				// split word
+				var wordTemp = whichWord.split;
 			}
 		}
-		// Split word into array
-		function wordTransform(whichWord){
-			// split word
-			var wordTemp = whichWord.split;
-		}
-		function Words(word, wordLength, hint, category) {
-		    this.word = word;
-		    this.wordLength = wordLength;
-		    this.hint = hint;
-		    this.category = category;
-		}
-		var wordList = [
-			new Words("Constructor", 11, "The Object of our coding", "WDI"),
-			new Words("JavaScript", 10, "Coffee writing", "WDI"),
-			new Words("America", 7, "She's beautiful", "Miscellaneous"),
-			new Words("Developers", 10, "What we are", "WDI"),
-			new Words("NYCDA", 5, "Where we are", "WDI"),
-			new Words("Camerican", 9, "Our instructor's github name", "People"),
-			new Words("Fortune", 7, "Wheel of ?", "Miscellaneous"),
-			new Words("Independance", 12, "The Declaration of ?", "Miscellaneous"),
-			new Words("Christmas", 9, "The celebration of Jesus' birth", "Miscellaneous"),
-			new Words("Jeremy", 6, "NYCDA's 'head honcho'", "People")
-		]
-	})
+	});
 });
-// function person(first, last, age, eye) {
-//     this.firstName = first;
-//     this.lastName = last;
-//     this.age = age;
-//     this.eyeColor = eye;
-// }
-
-// var myFather = new person("John", "Doe", 50, "blue");
-// var myMother = new person("Sally", "Rally", 48, "green");
-
-// document.getElementById("demo").innerHTML =
-// "My father is " + myFather.age + ". My mother is " + myMother.age;
-
-	// var word1 = new Words("Constructor", 11, "The Object of our coding", "WDI");
-	// var word2 = new Words("JavaScript", 10, "Coffee writing", "WDI");
-	// var word3 = new Words("America", 7, "She's beautiful", "Miscellaneous");
-	// var word4 = new Words("Developers", 10, "What we are", "WDI");
-	// var word5 = new Words("NYCDA", 5, "Where we are", "WDI");
-	// var word6 = new Words("Camerican", 9, "Our instructor's github name", "People");
-	// var word7 = new Words("Fortune", 7, "Wheel of ?", "Miscellaneous");
-	// var word8 = new Words("Independance", 12, "The Declaration of ?", "Miscellaneous");
-	// var word9 = new Words("Christmas", 9, "The celebration of Jesus' birth", "Miscellaneous");
-	// var word10 = new Words("Jeremy", 6, "NYCDA's 'head honcho'", "People");
 
 // Plan:
 // *** DONE *** • Design display for "hangman-style" layout & input
