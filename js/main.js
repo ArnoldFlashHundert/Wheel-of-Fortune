@@ -22,31 +22,30 @@ window.addEventListener("load",function(){
 	function fadeInFunc() {
 		document.getElementById("startGame").style.opacity = 1;
 	}
-	var perCharacter;
-	var characterSpace;
-	var spacesInbetween;
 	document.getElementById("startGame").addEventListener("click", function(){
 		var myVar3;
-		myVar3 = setTimeout(fadeOutFunc2, 1000); // 2B used while coding
+		myVar3 = setTimeout(fadeOutFunc2, 100); // 2B used while coding
 		// myVar3 = setTimeout(fadeOutFunc2, 4000); // 2B used when coding is done
 		function fadeOutFunc2() {
 			// document.getElementById("startGame").style.opacity = 0;
 			document.getElementById("startGame").style.display = "none";
-		var myVar4;
-		myVar4 = setTimeout(fadeInFunc2, 1000); // 2B used while coding
-		// myVar4 = setTimeout(fadeInFunc2, 4000); // 2B used when coding is done
+			var myVar4;
+			myVar4 = setTimeout(fadeInFunc2, 100); // 2B used while coding
+			// myVar4 = setTimeout(fadeInFunc2, 4000); // 2B used when coding is done
 		}
-	function fadeInFunc2() {
-		document.getElementById("guessBox").style.opacity = 1;
-	    document.getElementById("guessText").focus();
-	}
+		function fadeInFunc2() {
+			document.getElementById("guessBox").style.opacity = 1;
+			document.getElementById("guessText").focus();
+		}
 
-		var i;
+		var i, j, k, l;
+		var wordComplete, playersGuess, isRight;
 		var gameWord;
 		var gameWordLength;
 		var gameWordHint;
 		var gameWordCategory;
 		var words = new Array();
+		// This is the master loop, in which the entire game is played (for each of the 10 hard-coded words)
 		for(i = 0; i <= 9; i++){
 			words[0] = new Array("Constructor", 11, "An Object of coding", "WDI");
 			words[1] = new Array("JavaScript", 10, "Coffee writing", "WDI");
@@ -64,41 +63,59 @@ window.addEventListener("load",function(){
 			gameWordHint = words[i][2];
 			gameWordCategory = words[i][3];
 
+			alert("you reached here")
 			document.getElementById("categoryWords").innerHTML = gameWordCategory;
 
-			totalLength(gameWordLength);
+			document.getElementById("hintArea").innerHTML = "Hint: " + gameWordHint;
 
-			function totalLength(totlen){
-				var x = parseInt(totlen) + (parseInt(totlen) -1);
-				// x = 21
-				createWordDisplay(x);
+			// This creates the empty spaces for each new word
+			var wordAreaSpaces = "";
+			for (j = 0; j <= gameWordLength - 1; j++) {
+				wordAreaSpaces = wordAreaSpaces + " _"
+				document.getElementById("wordArea").innerHTML = wordAreaSpaces;
 			}
+			// This function is for the actual player's guessing
+			wordComplete = "False";
+			while(wordComplete == "False"){
+				document.getElementById("placeGuest").addEventListener("click",function(){
+					playersGuess = document.getElementById("guessText").value;
+					// playerGuessing();
+					function playerGuessing(){
+						var wordGuess = "";
+						var wordArray;
+						wordArray = gameWord.split("");
 
-			// Calculate "spreadout" of word 'dashes'
-			// Word available space
-			//	800 - 18 = (782)
-			// wordInfo = 21
-			function createWordDisplay(wordInfo){
-				var wordArray;
-				var wordGuess;
-				// for (var j = 0; j < wordArray.length; j++) {
-				// 	wordArray[j]
-				// }
-				wordArray = gameWord.split("");
-				wordGuess="";
-				// perCharacter = 782 / parseInt(wordInfo); // 37
-				for(i = 0; i < gameWordLength; i++){
-					wordGuess = wordGuess + wordArray[i] + "   ";
-				}
-				// document.getElementById("wordArea").innerHTML = wordGuess;
+						function guessRight(){
 
-				document.getElementById("hintArea").innerHTML = "Hint: " + gameWordHint;
-			}
+							for (k = 0; k < gameWordLength - 1; k++) {
+								if (playersGuess == wordArray[k]) {
+									wordAreaSpaces = wordAreaSpaces + " " + playersGuess;
+								}else{
+									wordAreaSpaces = wordAreaSpaces + " _";
+								}
+							}
 
-			// Split word into array
-			function wordTransform(whichWord){
-				// split word
-				var wordTemp = whichWord.split;
+							for (j = 0; j <= gameWordLength - 1; j++) {
+								if (j == 5) {
+									wordAreaSpaces = wordAreaSpaces + " r"
+								}else{
+									wordAreaSpaces = wordAreaSpaces + " _"
+								}
+								document.getElementById("wordArea").innerHTML = wordAreaSpaces;
+							}
+
+
+						}
+
+						function guessWrong(){
+							
+						}
+						for(l = 0; l < gameWordLength - 1; l++){
+							wordGuess = wordGuess + wordArray[l] + "   ";
+						}
+						// document.getElementById("wordArea").innerHTML = wordGuess;
+					}
+				})
 			}
 		}
 	});
