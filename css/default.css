@@ -179,6 +179,7 @@ body{
 	color: black;
 	font-size: 22px;
 	padding-top: 5px;
+	cursor: pointer;
 	border-radius: 45px;
 	border: 4px solid rgba(50,50,100,.8);
 	opacity: 0;
@@ -257,6 +258,7 @@ body{
 	text-align: center;
 	z-index: 3;
 
+	cursor: pointer;
 	border-radius: 45px;
 	border: 4px solid rgba(50,50,100,.8);
 }

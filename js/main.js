@@ -36,8 +36,12 @@ window.addEventListener("load",function(){
 		function fadeInFunc2() {
 			document.getElementById("guessBox").style.opacity = 1;
 			document.getElementById("guessText").focus();
+			var myVar5;
+			myVar5 = setTimeout(masterSection, 100);
 		}
+	});
 
+	function masterSection() {
 		var i, j, k, l;
 		var wordComplete, playersGuess, isRight;
 		var gameWord;
@@ -63,62 +67,57 @@ window.addEventListener("load",function(){
 			gameWordHint = words[i][2];
 			gameWordCategory = words[i][3];
 
-			alert("you reached here")
 			document.getElementById("categoryWords").innerHTML = gameWordCategory;
-
+// debugger;
+// alert("You made it here.");
 			document.getElementById("hintArea").innerHTML = "Hint: " + gameWordHint;
 
 			// This creates the empty spaces for each new word
 			var wordAreaSpaces = "";
 			for (j = 0; j <= gameWordLength - 1; j++) {
-				wordAreaSpaces = wordAreaSpaces + " _"
+				wordAreaSpaces = wordAreaSpaces + "_ ";
 				document.getElementById("wordArea").innerHTML = wordAreaSpaces;
 			}
 			// This function is for the actual player's guessing
-			wordComplete = "False";
-			while(wordComplete == "False"){
-				document.getElementById("placeGuest").addEventListener("click",function(){
-					playersGuess = document.getElementById("guessText").value;
-					// playerGuessing();
-					function playerGuessing(){
-						var wordGuess = "";
-						var wordArray;
-						wordArray = gameWord.split("");
+			// wordComplete = "False";
+			wordComplete = gameWordLength + 8;
+			for(isRight = 1; isRight < wordComplete; isRight++){
+			// while(wordComplete == "False"){
 
-						function guessRight(){
+				playersGuess = document.getElementById("guessText").value;
 
-							for (k = 0; k < gameWordLength - 1; k++) {
-								if (playersGuess == wordArray[k]) {
-									wordAreaSpaces = wordAreaSpaces + " " + playersGuess;
-								}else{
-									wordAreaSpaces = wordAreaSpaces + " _";
-								}
+				document.getElementById("placeGuest").addEventListener("click",playerGuessing);
+
+				function playerGuessing(){
+					// var wordGuess = "";
+					var wordArray, wordAreaSpacesArray, guessCorrect;
+					//"split" = string --> array
+					wordArray = gameWord.split("");
+					wordAreaSpacesArray = wordAreaSpaces.split("");
+
+					guessCorrect = false;
+					guessRight();
+					function guessRight(){
+						for (k = 0; k < gameWordLength - 1; k++) {
+							if (playersGuess == wordArray[k]) {
+								wordAreaSpacesArray[k] = playersGuess;
+								guessCorrect = true;
 							}
-
-							for (j = 0; j <= gameWordLength - 1; j++) {
-								if (j == 5) {
-									wordAreaSpaces = wordAreaSpaces + " r"
-								}else{
-									wordAreaSpaces = wordAreaSpaces + " _"
-								}
-								document.getElementById("wordArea").innerHTML = wordAreaSpaces;
-							}
-
-
 						}
-
-						function guessWrong(){
-							
-						}
-						for(l = 0; l < gameWordLength - 1; l++){
-							wordGuess = wordGuess + wordArray[l] + "   ";
-						}
-						// document.getElementById("wordArea").innerHTML = wordGuess;
+						wordAreaSpaces
+							document.getElementById("wordArea").innerHTML = wordAreaSpacesArray.join("");
 					}
-				})
+					function guessWrong(){
+						
+					}
+					// for(l = 0; l < gameWordLength - 1; l++){
+					// 	wordGuess = wordGuess + wordArray[l] + "   ";
+					// }
+					// document.getElementById("wordArea").innerHTML = wordGuess;
+				}
 			}
 		}
-	});
+	}
 });
 
 // Plan:
