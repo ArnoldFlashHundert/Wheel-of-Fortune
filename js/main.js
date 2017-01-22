@@ -37,19 +37,23 @@ window.addEventListener("load",function(){
 			document.getElementById("guessBox").style.opacity = 1;
 			document.getElementById("guessText").focus();
 			var myVar5;
-			myVar5 = setTimeout(masterSection, 100);
+			myVar5 = setTimeout(wordsInitialize, 100);
 		}
 	});
 
-	function masterSection() {
-		var i, j, k, l;
-		var wordComplete, playersGuess, isRight;
-		var gameWord;
-		var gameWordLength;
-		var gameWordHint;
-		var gameWordCategory;
-		var words = new Array();
-		// This is the master loop, in which the entire game is played (for each of the 10 hard-coded words)
+	var j, k, l;
+	var wordComplete;        // Boolean: Guessing on each word is complete?
+	var playersGuess;        // The single character guess that the player makes
+	var isRight;             // 2B deleted (All)
+	var gameWord;            // Just what it says - from the array
+	var words = new Array(); // Holds all of the hard-coded words
+	var whichWord = 0;       // Is the iterator in the 'words' array
+	var gameWordLength;      // Just what it says - from the array
+	var gameWordHint;        // Again, just what it says - from the array
+	var gameWordCategory;    // Yet again, just what it says - from the array
+
+	function wordsInitialize(){
+		var i;
 		for(i = 0; i <= 9; i++){
 			words[0] = new Array("Constructor", 11, "An Object of coding", "WDI");
 			words[1] = new Array("JavaScript", 10, "Coffee writing", "WDI");
@@ -61,61 +65,74 @@ window.addEventListener("load",function(){
 			words[7] = new Array("Independance", 12, "The Declaration of ?", "Miscellaneous");
 			words[8] = new Array("Christmas", 9, "The celebration of Jesus' birth", "Miscellaneous");
 			words[9] = new Array("Jeremy", 6, "NYCDA's 'head honcho'", "People");
+		}
+		var myVar6;
+		myVar6 = setTimeout(wordDisplay, 100);
+	}
+	function wordDisplay() {
+		if (wordComplete == "True"){
+			whichWord++;
+		}
+		gameWord = words[whichWord][0];
+		gameWordLength = parseInt(words[whichWord][1]);
+		gameWordHint = words[whichWord][2];
+		gameWordCategory = words[whichWord][3];
 
-			gameWord = words[i][0];
-			gameWordLength = parseInt(words[i][1]);
-			gameWordHint = words[i][2];
-			gameWordCategory = words[i][3];
+		document.getElementById("categoryWords").innerHTML = gameWordCategory;
+		document.getElementById("hintArea").innerHTML = "Hint: " + gameWordHint;
 
-			document.getElementById("categoryWords").innerHTML = gameWordCategory;
-// debugger;
-// alert("You made it here.");
-			document.getElementById("hintArea").innerHTML = "Hint: " + gameWordHint;
+		// This creates the empty spaces for each new word
+		var wordAreaSpaces = "";
+		for (j = 0; j <= gameWordLength - 1; j++) {
+			wordAreaSpaces = wordAreaSpaces + "_ ";
+			document.getElementById("wordArea").innerHTML = wordAreaSpaces;
+		}
+	}
 
-			// This creates the empty spaces for each new word
-			var wordAreaSpaces = "";
-			for (j = 0; j <= gameWordLength - 1; j++) {
-				wordAreaSpaces = wordAreaSpaces + "_ ";
-				document.getElementById("wordArea").innerHTML = wordAreaSpaces;
-			}
-			// This function is for the actual player's guessing
-			// wordComplete = "False";
-			wordComplete = gameWordLength + 8;
-			for(isRight = 1; isRight < wordComplete; isRight++){
-			// while(wordComplete == "False"){
 
-				playersGuess = document.getElementById("guessText").value;
 
-				document.getElementById("placeGuest").addEventListener("click",playerGuessing);
 
-				function playerGuessing(){
-					// var wordGuess = "";
-					var wordArray, wordAreaSpacesArray, guessCorrect;
-					//"split" = string --> array
-					wordArray = gameWord.split("");
-					wordAreaSpacesArray = wordAreaSpaces.split("");
 
-					guessCorrect = false;
-					guessRight();
-					function guessRight(){
-						for (k = 0; k < gameWordLength - 1; k++) {
-							if (playersGuess == wordArray[k]) {
-								wordAreaSpacesArray[k] = playersGuess;
-								guessCorrect = true;
-							}
-						}
-						wordAreaSpaces
-							document.getElementById("wordArea").innerHTML = wordAreaSpacesArray.join("");
+
+
+
+
+	// This function is for the actual player's guessing
+	// wordComplete = "False";
+	wordComplete = gameWordLength + 8;
+	for(isRight = 1; isRight < wordComplete; isRight++){
+	// while(wordComplete == "False"){
+
+		playersGuess = document.getElementById("guessText").value;
+
+		document.getElementById("placeGuest").addEventListener("click",playerGuessing);
+
+		function playerGuessing(){
+			// var wordGuess = "";
+			var wordArray, wordAreaSpacesArray, guessCorrect;
+			//"split" = string --> array
+			wordArray = gameWord.split("");
+			wordAreaSpacesArray = wordAreaSpaces.split("");
+
+			guessCorrect = false;
+			guessRight();
+			function guessRight(){
+				for (k = 0; k < gameWordLength - 1; k++) {
+					if (playersGuess == wordArray[k]) {
+						wordAreaSpacesArray[k] = playersGuess;
+						guessCorrect = true;
 					}
-					function guessWrong(){
-						
-					}
-					// for(l = 0; l < gameWordLength - 1; l++){
-					// 	wordGuess = wordGuess + wordArray[l] + "   ";
-					// }
-					// document.getElementById("wordArea").innerHTML = wordGuess;
 				}
+				wordAreaSpaces
+					document.getElementById("wordArea").innerHTML = wordAreaSpacesArray.join("");
 			}
+			function guessWrong(){
+				
+			}
+			// for(l = 0; l < gameWordLength - 1; l++){
+			// 	wordGuess = wordGuess + wordArray[l] + "   ";
+			// }
+			// document.getElementById("wordArea").innerHTML = wordGuess;
 		}
 	}
 });
