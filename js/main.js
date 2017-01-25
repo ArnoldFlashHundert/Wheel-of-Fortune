@@ -44,27 +44,28 @@ window.addEventListener("load",function(){
 	var j, k, l;
 	var wordComplete;        // Boolean: Guessing on each word is complete?
 	var playersGuess;        // The single character guess that the player makes
-	var isRight;             // 2B deleted (All)
 	var gameWord;            // Just what it says - from the array
 	var words = new Array(); // Holds all of the hard-coded words
 	var whichWord = 0;       // Is the iterator in the 'words' array
 	var gameWordLength;      // Just what it says - from the array
 	var gameWordHint;        // Again, just what it says - from the array
 	var gameWordCategory;    // Yet again, just what it says - from the array
+	var guessesLeft = 7;     // A counter depicting the # of remaining wrong guesses
+	var wordAreaSpaces = "";
 
 	function wordsInitialize(){
 		var i;
 		for(i = 0; i <= 9; i++){
-			words[0] = new Array("Constructor", 11, "An Object of coding", "WDI");
-			words[1] = new Array("JavaScript", 10, "Coffee writing", "WDI");
-			words[2] = new Array("America", 7, "She's beautiful", "Miscellaneous");
-			words[3] = new Array("Developers", 10, "What we are", "WDI");
-			words[4] = new Array("NYCDA", 5, "Where we are", "WDI");
-			words[5] = new Array("Camerican", 9, "Our instructor's github name", "People");
-			words[6] = new Array("Fortune", 7, "Wheel of ?", "Miscellaneous");
-			words[7] = new Array("Independance", 12, "The Declaration of ?", "Miscellaneous");
-			words[8] = new Array("Christmas", 9, "The celebration of Jesus' birth", "Miscellaneous");
-			words[9] = new Array("Jeremy", 6, "NYCDA's 'head honcho'", "People");
+			words[0] = new Array("constructor", 11, "An Object of coding.", "WDI");
+			words[1] = new Array("javaScript", 10, "Coffee writing.", "WDI");
+			words[2] = new Array("television", 10, "The 'boob' box.", "Technology");
+			words[3] = new Array("developers", 10, "What we are now.", "WDI");
+			words[4] = new Array("NYCDA", 5, "Where we learned.", "WDI");
+			words[5] = new Array("microwave", 9, "A 'modern-day' invention.", "Technology");
+			words[6] = new Array("fortune", 7, "wheel of ?.", "Miscellaneous");
+			words[7] = new Array("independance", 12, "Reason for the Revolutionary War.", "Miscellaneous");
+			words[8] = new Array("Christmas", 9, "The celebration of Jesus' birth.", "Miscellaneous");
+			words[9] = new Array("Jeremy", 6, "NYCDA's 'head honcho'.", "People");
 		}
 		var myVar6;
 		myVar6 = setTimeout(wordDisplay, 100);
@@ -80,61 +81,76 @@ window.addEventListener("load",function(){
 
 		document.getElementById("categoryWords").innerHTML = gameWordCategory;
 		document.getElementById("hintArea").innerHTML = "Hint: " + gameWordHint;
+		document.getElementById("remainingGuessesArea").innerHTML = "Left: " + guessesLeft;
 
 		// This creates the empty spaces for each new word
-		var wordAreaSpaces = "";
 		for (j = 0; j <= gameWordLength - 1; j++) {
 			wordAreaSpaces = wordAreaSpaces + "_ ";
 			document.getElementById("wordArea").innerHTML = wordAreaSpaces;
 		}
+		document.getElementById("placeGuest").addEventListener("click",playerGuessing);
 	}
-
-
-
-
-
-
-
-
-
+// ********************************************************************************
 	// This function is for the actual player's guessing
 	// wordComplete = "False";
-	wordComplete = gameWordLength + 8;
-	for(isRight = 1; isRight < wordComplete; isRight++){
+	// wordComplete = gameWordLength + 8;
 	// while(wordComplete == "False"){
-
-		playersGuess = document.getElementById("guessText").value;
-
-		document.getElementById("placeGuest").addEventListener("click",playerGuessing);
-
 		function playerGuessing(){
+			playersGuess = document.getElementById("guessText").value;
 			// var wordGuess = "";
-			var wordArray, wordAreaSpacesArray, guessCorrect;
+			var wordArray;           // Holds the split string in an array
+			var wordAreaSpacesArray; // To hold updated version of "wordArea"
+			var guessCorrect;        // Boolean to test validity of each guessed letter
+			var wordGuessingAreaSpaces = "";
+
 			//"split" = string --> array
 			wordArray = gameWord.split("");
-			wordAreaSpacesArray = wordAreaSpaces.split("");
+			wordGuessingAreaSpaces = document.getElementById("wordArea").innerHTML;
+			wordAreaSpacesArray = wordGuessingAreaSpaces.split("");
 
-			guessCorrect = false;
 			guessRight();
 			function guessRight(){
-				for (k = 0; k < gameWordLength - 1; k++) {
+				var numberRight = 0;
+				var underscoreCount = 0;
+				for (k = 0; k < gameWordLength; k++) {
 					if (playersGuess == wordArray[k]) {
-						wordAreaSpacesArray[k] = playersGuess;
+						wordAreaSpacesArray[k*2] = playersGuess;
+						numberRight++;
 						guessCorrect = true;
 					}
 				}
-				wordAreaSpaces
-					document.getElementById("wordArea").innerHTML = wordAreaSpacesArray.join("");
+				if (numberRight == 0) {
+					guessWrong();
+				}
+				for (l = 0; l < wordAreaSpacesArray.length; l++){
+					if (wordAreaSpacesArray[l] == "_") {
+						underscoreCount++;
+					}
+					if (underscoreCount == 0) {
+						wordComplete = "True";
+						alert("Congratulations! You guessed the word.")
+						wordDisplay()
+					}
+				}
+				document.getElementById("wordArea").innerHTML = wordAreaSpacesArray.join("");
 			}
 			function guessWrong(){
-				
+				var remainingGuesses;
+				var remainingGuessesArray;
+				var remainingGuessesValue;
+				remainingGuesses = document.getElementById("remainingGuessesArea").innerHTML;
+				remainingGuessesArray = remainingGuesses.split("");
+
+				var x = remainingGuessesArray.pop();
+				remainingGuessesValue = parseInt(x) - 1;
+				document.getElementById("remainingGuessesArea").innerHTML = "Left: " + remainingGuessesValue.toString();
 			}
-			// for(l = 0; l < gameWordLength - 1; l++){
-			// 	wordGuess = wordGuess + wordArray[l] + "   ";
-			// }
-			// document.getElementById("wordArea").innerHTML = wordGuess;
+			document.getElementById("guessText").value = "";
+			document.getElementById("guessText").placeholder="abc";
+			document.getElementById("guessText").focus();
 		}
-	}
+// constructor javaScript television developers NYCDA
+// microwave fortune independance Christmas Jeremy
 });
 
 // Plan:
