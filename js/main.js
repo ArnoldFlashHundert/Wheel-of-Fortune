@@ -10,14 +10,14 @@ window.addEventListener("load",function(){
 	myFunction();
 	function myFunction() {
 		var myVar;
-		myVar = setTimeout(fadeoutFunc, 1000); // 2B used while coding
-		// myVar = setTimeout(fadeoutFunc, 5000); // 2B used when coding is done
+		// myVar = setTimeout(fadeoutFunc, 1000); // 2B used while coding
+		myVar = setTimeout(fadeoutFunc, 7000); // 2B used when coding is done
 	}
 	function fadeoutFunc() {
 		document.getElementById("goal").style.opacity = 0;
 		var myVar2;
-		myVar2 = setTimeout(fadeInFunc, 1000); // 2B used while coding
-		// myVar2 = setTimeout(fadeInFunc, 4000); // 2B used when coding is done
+		// myVar2 = setTimeout(fadeInFunc, 1000); // 2B used while coding
+		myVar2 = setTimeout(fadeInFunc, 4000); // 2B used when coding is done
 	}
 	function fadeInFunc() {
 		document.getElementById("startGame").style.opacity = 1;
@@ -25,14 +25,12 @@ window.addEventListener("load",function(){
 	}
 	document.getElementById("startGame").addEventListener("click", function(){
 		var myVar3;
-		myVar3 = setTimeout(fadeOutFunc2, 100); // 2B used while coding
-		// myVar3 = setTimeout(fadeOutFunc2, 4000); // 2B used when coding is done
+		myVar3 = setTimeout(fadeOutFunc2, 100);
 		function fadeOutFunc2() {
 			// document.getElementById("startGame").style.opacity = 0;
 			document.getElementById("startGame").style.display = "none";
 			var myVar4;
-			myVar4 = setTimeout(fadeInFunc2, 100); // 2B used while coding
-			// myVar4 = setTimeout(fadeInFunc2, 4000); // 2B used when coding is done
+			myVar4 = setTimeout(fadeInFunc2, 100);
 		}
 		function fadeInFunc2() {
 			document.getElementById("guessBox").style.opacity = 1;
@@ -42,17 +40,22 @@ window.addEventListener("load",function(){
 		}
 	});
 
-	var j, k, l;
-	var wordComplete = false;// Boolean: Guessing on each word is complete?
-	var playersGuess;        // The single character guess that the player makes
-	var gameWord;            // Just what it says - from the array
-	var words = new Array(); // Holds all of the hard-coded words
-	var whichWord = 0;       // Is the iterator in the 'words' array
-	var gameWordLength;      // Just what it says - from the array
-	var gameWordHint;        // Again, just what it says - from the array
-	var gameWordCategory;    // Yet again, just what it says - from the array
-	var guessesLeft = 7;     // A counter depicting the # of remaining wrong guesses
+	var j, k, l, m, n, o;			// Basic incrementers
+	var wordComplete = false;		// Boolean: Guessing on each word is complete?
+	var playersGuess;        		// The single character guess that the player makes
+	var gameWord;            		// Just what it says - from the array
+	var words = new Array(); 		// Holds all of the hard-coded words
+	var whichWord = 0;       		// Is the iterator in the 'words' array
+	var gameWordLength;      		// Just what it says - from the array
+	var gameWordHint;        		// Again, just what it says - from the array
+	var gameWordCategory;    		// Yet again, just what it says - from the array
 	var wordAreaSpaces = "";
+	var vowelYN = false;	 		// Boolean: To see if the wrong-guessed letter is a vowel
+	var vowels = ['a', 'e', 'i', 'o', 'u'];
+	var wordEndGuessedYes = false;	// Boolean: Gameplay ended. Was the word guessed?
+	var guessesLeft = 7;     		// A counter depicting the # of remaining wrong guesses
+	var consonantsStart = "Consonants: _ _ _ _ _ _ _";
+	var vowelsStart = "Vowels: _ _ _ _ _";
 
 	function wordsInitialize(){
 		var i;
@@ -85,6 +88,8 @@ window.addEventListener("load",function(){
 		document.getElementById("categoryWords").innerHTML = gameWordCategory;
 		document.getElementById("hintArea").innerHTML = "Hint: " + gameWordHint;
 		document.getElementById("remainingGuessesArea").innerHTML = "Left: " + guessesLeft;
+		document.getElementById("consonantsArea").innerHTML = consonantsStart;
+		document.getElementById("vowelsArea").innerHTML = vowelsStart;
 
 		// This creates the empty spaces for each new word
 		for (j = 0; j <= gameWordLength - 1; j++) {
@@ -98,74 +103,153 @@ window.addEventListener("load",function(){
 		document.getElementById("placeGuest").addEventListener("click",playerGuessing);
 	}
 // ********************************************************************************
-	// This function is for the actual player's guessing
-		function playerGuessing(){
-			// var wordGuess = "";
-			var wordArray;           // Holds the split string in an array
-			var wordAreaSpacesArray; // To hold updated version of "wordArea"
-			var wordGuessingAreaSpaces = ""; // _'s & spaces for word being played
-			var numberRight = 0;     // # of correct letters
-			var underscoreCount = 0; // To determine if word being played is finished
+// 				This function is for the actual player's guessing
 // ********************************************************************************
-			playersGuess = document.getElementById("guessText").value;
-			//"split" = string --> array
-			wordArray = gameWord.split("");
-			wordGuessingAreaSpaces = document.getElementById("wordArea").innerHTML;
-			wordAreaSpacesArray = wordGuessingAreaSpaces.split("");
+	function playerGuessing(){
+		var wordArray;           // Holds the split string in an array
+		var wordAreaSpacesArray; // To hold updated version of "wordArea"
+		var wordGuessingAreaSpaces = ""; // _'s & spaces for word being played
+		var numberRight = 0;     // # of correct letters
+		var underscoreCount = 0; // To determine if word being played is finished
 // ********************************************************************************
+//				Retrieve player's guessed letter & prepare for testing
 // ********************************************************************************
-//			           Test player's guess
-			for (k = 0; k < gameWordLength; k++) {
-				if (playersGuess == wordArray[k]) {
-					wordAreaSpacesArray[k*2] = playersGuess;
-					numberRight++; // # of correct letters
-				}
+		playersGuess = document.getElementById("guessText").value;
+		//"split" = string --> array
+		wordArray = gameWord.split("");
+		wordGuessingAreaSpaces = document.getElementById("wordArea").innerHTML;
+		wordAreaSpacesArray = wordGuessingAreaSpaces.split("");
+// ********************************************************************************
+//			  Test player's guess &, if right, place in array for display
+// ********************************************************************************
+		for (k = 0; k < gameWordLength; k++) {
+			if (playersGuess == wordArray[k]) {
+				wordAreaSpacesArray[k*2] = playersGuess;
+				numberRight++; // # of correct letters
 			}
+		}
 // *******************************************************************************
 // 						Testing for the # of correct letters
-			if (numberRight > 0) {
-				guessedRight();
-			// Testing to see if the guessed letter was wrong
-			}else if (numberRight == 0) {
-				guessedWrong();
+// ********************************************************************************
+		if (numberRight > 0) {
+			guessedRight();
+		// Testing to see if the guessed letter was wrong
+		}else if (numberRight == 0) {
+			guessedWrong();
+		}
+// ********************************************************************************
+// 				This function is for IF the player guessed right
+// ********************************************************************************
+		function guessedRight(){
+// 				Testing to see if there are any letters left to be guessed
+			for (l = 0; l < wordAreaSpacesArray.length; l++){
+				if (wordAreaSpacesArray[l] == "_") {
+					underscoreCount++;
+				}
+			}
+			document.getElementById("wordArea").innerHTML = wordAreaSpacesArray.join("");
+			if (underscoreCount == 0) {
+				wordEndGuessedYes = true;
+				var myVar7;
+				myVar7 = setTimeout(nextWord, 1000);
+			}
+		}
+// ********************************************************************************
+// 				Steps to take since the word was guessed correctly
+		function nextWord(){
+			wordComplete = true;
+			if (wordEndGuessedYes === true) {
+				alert("Congratulations! You guessed the word.");
+			}else{
+				alert("Sorry, but the alotted # of guesses has been reached. Better luck next time.");
+			}
+			wordDisplay();
+		}
+// ********************************************************************************
+// 				This function is for IF the player guessed wrong
+// ********************************************************************************
+		function guessedWrong(){
+			remainingGuesses();
+			function remainingGuesses(){
+				var numRemainingGuesses;		// The # of remaining guesses from the page
+				var numRemainingGuessesArray;	// To get the # from the mixed string (# & letters)
+				var numRemainingGuessesValue;	// To subtract 1 from the # of wrong guesses left
+//				Get the # of remaining guesses from the page
+				numRemainingGuesses = document.getElementById("remainingGuessesArea").innerHTML;
+				numRemainingGuessesArray = numRemainingGuesses.split("");
+// ********************************************************************************
+//				Reduce the # of remaining guesses by one(1)
+				var x = numRemainingGuessesArray.pop();
+				numRemainingGuessesValue = parseInt(x) - 1;
+				// numRemainingGuessesValue = parseInt(x) - 1;
+				document.getElementById("remainingGuessesArea").innerHTML = "Left: " + numRemainingGuessesValue.toString();
+//				If the # of remaining guesses = 0
+				if (numRemainingGuessesValue == 0) {
+					wordEndGuessedYes = false;
+					var myVar8;
+					myVar8 = setTimeout(nextWord, 1000);
+				}else{
+					vowelYesNo();
+				}
 			}
 // ********************************************************************************
-			function guessedRight(){
-// 				Testing to see if there are any letters left to be guessed
-				for (l = 0; l < wordAreaSpacesArray.length; l++){
-					if (wordAreaSpacesArray[l] == "_") {
-						underscoreCount++;
+//						Test if wrong-guessed letter is a vowel
+			// var vowels = ['a', 'e', 'i', 'o', 'u'];
+			// var vowels = ['e', 'a', 'i', 'o', 'u'];
+			function vowelYesNo(){
+				for (m = 0; m < vowels.length; m++) {
+				// for (m = 0; vowels.length - 1; m++) { (???Why did this cause an endless loop???)
+					if (playersGuess == vowels[m]) {
+						vowelYN = true;
 					}
 				}
-				document.getElementById("wordArea").innerHTML = wordAreaSpacesArray.join("");
-				if (underscoreCount == 0) {
-					var myVar7;
-					myVar7 = setTimeout(nextWord, 1000);
-				}
-				function nextWord(){
-					wordComplete = true;
-					alert("Congratulations! You guessed the word.");
-					wordDisplay();
+				if (vowelYN == true) {
+					vowelYes();
+				}else{
+					vowelNo();
 				}
 			}
 // ********************************************************************************
-			function guessedWrong(){
-				var remainingGuesses;
-				var remainingGuessesArray;
-				var remainingGuessesValue;
-//				Get the # of remaining guesses from the page
-				remainingGuesses = document.getElementById("remainingGuessesArea").innerHTML;
-				remainingGuessesArray = remainingGuesses.split("");
-
-				var x = remainingGuessesArray.pop();
-				remainingGuessesValue = parseInt(x) - 1;
-				document.getElementById("remainingGuessesArea").innerHTML = "Left: " + remainingGuessesValue.toString();
+//			           Display wrong guesses - Vowels
+// ********************************************************************************
+			function vowelYes(){
+				vowelYN = false;
+				var wrongGuessAreaSpacesVowelsArray;
+				var wrongGuessAreaSpacesVowels = "";
+				wrongGuessAreaSpacesVowels = document.getElementById("vowelsArea").innerHTML;
+				wrongGuessAreaSpacesVowelsArray = wrongGuessAreaSpacesVowels.split("");
+				for (n = 0; n < wrongGuessAreaSpacesVowelsArray.length; n++) {
+					if (wrongGuessAreaSpacesVowelsArray[n] == "_") {
+						wrongGuessAreaSpacesVowelsArray[n] = playersGuess;
+						break;
+					}
+				}
+				document.getElementById("vowelsArea").innerHTML = wrongGuessAreaSpacesVowelsArray.join("");
 			}
 // ********************************************************************************
-			document.getElementById("guessText").value = "";
-			document.getElementById("guessText").placeholder="abc";
-			document.getElementById("guessText").focus();
+//			           Display wrong guesses - Consonants
+// ********************************************************************************
+			function vowelNo(){
+				vowelYN = false;
+				var wrongGuessAreaSpacesConsonantsArray;
+				var wrongGuessAreaSpacesConsonants = "";
+				wrongGuessAreaSpacesConsonants = document.getElementById("consonantsArea").innerHTML;
+				wrongGuessAreaSpacesConsonantsArray = wrongGuessAreaSpacesConsonants.split("");
+				for (o = 0; o < wrongGuessAreaSpacesConsonantsArray.length; o++) {
+					if (wrongGuessAreaSpacesConsonantsArray[o] == "_") {
+						wrongGuessAreaSpacesConsonantsArray[o] = playersGuess;
+					    break;
+					}
+				}
+				document.getElementById("consonantsArea").innerHTML = wrongGuessAreaSpacesConsonantsArray.join("");
+			}
 		}
+// ********************************************************************************
+// ********************************************************************************
+		document.getElementById("guessText").value = "";
+		document.getElementById("guessText").placeholder="abc";
+		document.getElementById("guessText").focus();
+	}
 });
 
 // Plan:
